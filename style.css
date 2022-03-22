@@ -1,0 +1,95 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --columnsTimeRowNumber: 1;
+}
+
+body {
+  background-color: rgb(60, 61, 61);
+  color: white;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80px;
+  background-color: rgb(24, 24, 24);
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  border: 2px solid white;
+  min-height: 80vh;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap-reverse;
+  gap: 50px;
+  border: 2px solid pink;
+}
+
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10px;
+  gap: 20px;
+  border: 2px solid yellow;
+}
+
+.draw-area {
+  margin: 10px;
+  width: 340px;
+  height: 340px;
+  background-color: aqua;
+  align-self: center;
+  display: grid;
+  grid-template-columns: repeat(var(--columnsTimeRowNumber), 1fr);
+  grid-template-rows: repeat(var(--columnsTimeRowNumber), 1fr);
+}
+
+.grid-item {
+  border: 1px solid black;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90px;
+  background-color: rgb(24, 24, 24);
+}
+
+.btn {
+  border-radius: 14px;
+  width: 190px;
+  height: 60px;
+}
+
+@media only screen and (min-width: 670px) {
+  .draw-area {
+    margin: 10px;
+    width: 510px;
+    height: 510px;
+    background-color: aqua;
+    align-self: center;
+  }
+}
+
+@media only screen and (max-width: 290px) {
+  .draw-area {
+    margin: 10px;
+    width: 250px;
+    height: 250px;
+    background-color: aqua;
+    align-self: center;
+  }
+}
