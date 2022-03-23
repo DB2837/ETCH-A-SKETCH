@@ -18,9 +18,9 @@
         <div class="control-panel">
           <div class="color-picker">
             <h3>Color picker</h3>
-            <input type="color" id="color" />
+            <input type="color" id="color-picker" class="color" />
             <h3>Board Color</h3>
-            <input type="color" id="color" />
+            <input type="color" id="board-color" class="color" />
           </div>
           <button class="btn" id="color-mode">Color Mode</button>
           <button class="btn" id="rainbow-mode">Rainbow Mode</button>
@@ -28,8 +28,8 @@
           <button class="btn" id="clear-board">Clear Board</button>
           <div class="grid-slider">
             <h3>Grid Dimension:</h3>
-            <input type="range" min="1" max="100" value="50" id="slider" />
-            <div class="sliderSize">16 x 16</div>
+            <input type="range" min="1" max="50" value="25" id="slider" />
+            <div id="slider-size"></div>
           </div>
         </div>
         <div class="draw-area"></div>
