@@ -7,6 +7,43 @@
 :root {
   --columnsTimeRowNumber: 1;
 }
+/* Slider style begin */
+input[type="range"] {
+  -webkit-appearance: none;
+  margin: 10px;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background: rgb(214, 72, 16);
+  height: 5px;
+}
+
+input[type="range"]::-moz-range-track {
+  background: rgb(214, 72, 16);
+  height: 5px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 15px;
+  width: 15px;
+  background: rgb(12, 12, 12);
+  margin-top: -5px;
+  border-radius: 50%;
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 15px;
+  width: 15px;
+  background: rgb(12, 12, 12);
+  margin-top: -5px;
+  border-radius: 50%;
+}
+/* Slider style End */
 
 body {
   background-color: rgb(60, 61, 61);
@@ -42,7 +79,11 @@ body {
   justify-content: center;
   margin: 10px;
   gap: 20px;
-  border: 2px solid yellow;
+  border: 2px solid rgb(230, 230, 15);
+}
+
+.grid-slider {
+  text-align: center;
 }
 
 .draw-area {
@@ -68,10 +109,19 @@ body {
   background-color: rgb(24, 24, 24);
 }
 
+.color-picker {
+  text-align: center;
+}
+
+#color {
+  width: 130px;
+  margin-top: 5px;
+}
+
 .btn {
   border-radius: 14px;
   width: 190px;
-  height: 60px;
+  height: 40px;
 }
 
 @media only screen and (min-width: 670px) {

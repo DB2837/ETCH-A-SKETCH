@@ -16,16 +16,23 @@
     <main class="main">
       <div class="container">
         <div class="control-panel">
-          <div class="color-picker"></div>
-          <button class="btn">Color Mode</button>
-          <button class="btn">Rainbow Mode</button>
-          <button class="btn">Eraser</button>
-          <button class="btn">Clear Board</button>
-          <div class="grid-selector"></div>
+          <div class="color-picker">
+            <h3>Color picker</h3>
+            <input type="color" id="color" />
+            <h3>Board Color</h3>
+            <input type="color" id="color" />
+          </div>
+          <button class="btn" id="color-mode">Color Mode</button>
+          <button class="btn" id="rainbow-mode">Rainbow Mode</button>
+          <button class="btn" id="eraser">Eraser</button>
+          <button class="btn" id="clear-board">Clear Board</button>
+          <div class="grid-slider">
+            <h3>Grid Dimension:</h3>
+            <input type="range" min="1" max="100" value="50" id="slider" />
+            <div class="sliderSize">16 x 16</div>
+          </div>
         </div>
-        <div class="draw-area">
-          <div class="grid-item">item</div>
-        </div>
+        <div class="draw-area"></div>
       </div>
     </main>
     <footer class="footer">FOOTER</footer>
