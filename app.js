@@ -148,7 +148,6 @@ function toggleGridLines() {
 gridSlider.addEventListener("change", () => {
   removeGridItems();
   createGrid(gridSlider.value);
-  /* colorGridSquares(colorPicker.value); */
   btnColorMode.click();
   boardColor.value = "#ffffff";
 });
