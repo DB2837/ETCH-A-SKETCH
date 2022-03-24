@@ -8,20 +8,48 @@ const btnGridLines = document.querySelector("#grid-lines");
 const drawArea = document.querySelector(".draw-area");
 const gridSlider = document.getElementById("slider");
 const sliderSize = document.getElementById("slider-size");
-let gridSquares = drawArea.querySelectorAll("div");
-var mouseIsDown = false;
+//let gridSquares = drawArea.querySelectorAll("div");
+let mouseIsDown = false;
 
-btnGridLines.addEventListener("click", toggleGridLines);
-btnColorMode.addEventListener("click", colorGridSquares);
+colorPicker.addEventListener("change", () => {
+  btnColorMode.click();
+});
 
 boardColor.addEventListener("change", () => {
-  const drawArea = document.querySelector(".draw-area");
-  drawArea.style.backgroundColor = boardColor.value;
+  btnColorMode.click();
+});
+
+clearBoardBtn.addEventListener("click", () => {
+  clearBoard();
+  btnColorMode.click();
+});
+btnGridLines.addEventListener("click", () => {
+  toggleGridLines();
+  btnColorMode.click();
+});
+btnColorMode.addEventListener("click", () => {
+  colorGridSquares();
+  btnColorMode.classList.add("active");
+  eraserBtn.classList.remove("active");
+  rainbowModeBtn.classList.remove("active");
+});
+eraserBtn.addEventListener("click", () => {
+  eraseColorGridSquares();
+  eraserBtn.classList.add("active");
+  btnColorMode.classList.remove("active");
+  rainbowModeBtn.classList.remove("active");
+});
+
+boardColor.addEventListener("change", () => {
+  gridSquares.forEach(
+    (square) => (square.style.backgroundColor = boardColor.value)
+  );
 });
 
 function generateGridItem() {
   const gridItem = document.createElement("div");
   gridItem.className = "grid-item";
+  gridItem.className = "grid-item-blank";
 
   drawArea.appendChild(gridItem);
 }
@@ -42,9 +70,41 @@ function createGrid(dim) {
   sliderSize.textContent = `${gridSlider.value} x ${gridSlider.value}`;
 }
 
+/* function generateRandomColor(color) {
+  color = Math.floor(Math.random() * 16777215).toString(16);
+} */
+
+function clearBoard() {
+  gridSquares.forEach((square) => (square.style.backgroundColor = "#ffffff"));
+  boardColor.value = "#ffffff";
+}
+
 function colorGridSquares() {
+  colorSquares(colorPicker.value);
+}
+
+function eraseColorGridSquares() {
+  colorSquares(boardColor.value);
+}
+
+function toggleGridLines() {
+  const gridSquares = drawArea.querySelectorAll(".grid-item-blank");
+  gridSquares.forEach((square) => square.classList.toggle("grid-item"));
+}
+
+gridSlider.addEventListener("change", () => {
+  removeGridItems();
+  createGrid(gridSlider.value);
+  /* colorGridSquares(colorPicker.value); */
+  btnColorMode.click();
+  boardColor.value = "#ffffff";
+});
+
+function colorSquares(color) {
+  const gridSquares = drawArea.querySelectorAll(".grid-item-blank");
+
   gridSquares.forEach((square) =>
-    square.addEventListener("mousedown", function () {
+    square.addEventListener("mousedown", () => {
       mouseIsDown = true;
     })
   );
@@ -52,7 +112,7 @@ function colorGridSquares() {
   gridSquares.forEach((square) =>
     square.addEventListener("mouseover", (e) => {
       if (mouseIsDown && e.type == "mouseover") {
-        e.target.style.backgroundColor = colorPicker.value;
+        square.style.backgroundColor = color;
       }
     })
   );
@@ -60,31 +120,23 @@ function colorGridSquares() {
   gridSquares.forEach((square) =>
     square.addEventListener("click", (e) => {
       if (!mouseIsDown && e.type == "click") {
-        e.target.style.backgroundColor = colorPicker.value;
+        square.style.backgroundColor = color;
       }
     })
   );
 
   gridSquares.forEach((square) =>
-    square.addEventListener("mouseup", function () {
+    square.addEventListener("mouseup", () => {
       mouseIsDown = false;
     })
   );
 }
 
-function toggleGridLines() {
-  gridSquares.forEach((square) => square.classList.toggle("grid-item"));
-}
-
-gridSlider.addEventListener("change", () => {
-  removeGridItems();
-  createGrid(gridSlider.value);
-  colorGridSquares();
-});
-
 window.onload = () => {
   boardColor.value = "#ffffff";
   sliderSize.textContent = `${gridSlider.value} x ${gridSlider.value}`;
+  toggleGridLines();
   createGrid(gridSlider.value);
-  colorGridSquares();
+  colorGridSquares(colorPicker.value);
+  btnColorMode.classList.add("active");
 };

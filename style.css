@@ -6,6 +6,7 @@
 
 :root {
   --columnsTimeRowNumber: 1;
+  --gridColor: #000000;
 }
 /* Slider style begin */
 input[type="range"] {
@@ -90,7 +91,7 @@ body {
   margin: 10px;
   width: 340px;
   height: 340px;
-  background-color: aqua;
+  background-color: rgb(255, 255, 255);
   align-self: center;
   display: grid;
   grid-template-columns: repeat(var(--columnsTimeRowNumber), 1fr);
@@ -98,7 +99,10 @@ body {
 }
 
 .grid-item {
-  border: 1px solid black;
+  border: 1px solid var(--gridColor);
+}
+
+.grid-item-blank {
 }
 
 .footer {
@@ -125,12 +129,16 @@ body {
   background-color: rgb(245, 90, 29);
 }
 
+.active {
+  background-color: pink;
+}
+
 @media only screen and (min-width: 670px) {
   .draw-area {
     margin: 10px;
     width: 510px;
     height: 510px;
-    background-color: aqua;
+    background-color: white;
     align-self: center;
   }
 }
