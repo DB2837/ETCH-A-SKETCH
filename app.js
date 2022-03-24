@@ -8,15 +8,18 @@ const btnGridLines = document.querySelector("#grid-lines");
 const drawArea = document.querySelector(".draw-area");
 const gridSlider = document.getElementById("slider");
 const sliderSize = document.getElementById("slider-size");
-//let gridSquares = drawArea.querySelectorAll("div");
+let randomColor;
+let rainbowMode = false;
 let mouseIsDown = false;
 
 colorPicker.addEventListener("change", () => {
   btnColorMode.click();
+  rainbowMode = false;
 });
 
 boardColor.addEventListener("change", () => {
   btnColorMode.click();
+  rainbowMode = false;
 });
 
 clearBoardBtn.addEventListener("click", () => {
@@ -28,16 +31,25 @@ btnGridLines.addEventListener("click", () => {
   btnColorMode.click();
 });
 btnColorMode.addEventListener("click", () => {
+  rainbowMode = false;
   colorGridSquares();
   btnColorMode.classList.add("active");
   eraserBtn.classList.remove("active");
   rainbowModeBtn.classList.remove("active");
 });
 eraserBtn.addEventListener("click", () => {
+  rainbowMode = false;
   eraseColorGridSquares();
   eraserBtn.classList.add("active");
   btnColorMode.classList.remove("active");
   rainbowModeBtn.classList.remove("active");
+});
+
+rainbowModeBtn.addEventListener("click", () => {
+  randomColorGridSquares();
+  eraserBtn.classList.remove("active");
+  btnColorMode.classList.remove("active");
+  rainbowModeBtn.classList.add("active");
 });
 
 boardColor.addEventListener("change", () => {
@@ -70,17 +82,58 @@ function createGrid(dim) {
   sliderSize.textContent = `${gridSlider.value} x ${gridSlider.value}`;
 }
 
-/* function generateRandomColor(color) {
-  color = Math.floor(Math.random() * 16777215).toString(16);
-} */
-
 function clearBoard() {
   gridSquares.forEach((square) => (square.style.backgroundColor = "#ffffff"));
   boardColor.value = "#ffffff";
 }
 
+function generateRandomColor() {
+  const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+  return "#" + randomColor;
+}
+
 function colorGridSquares() {
   colorSquares(colorPicker.value);
+}
+
+function randomColorGridSquares() {
+  rainbowMode = true;
+}
+
+function colorSquares(color) {
+  const gridSquares = drawArea.querySelectorAll(".grid-item-blank");
+
+  gridSquares.forEach((square) =>
+    square.addEventListener("mousedown", () => {
+      mouseIsDown = true;
+    })
+  );
+
+  gridSquares.forEach((square) =>
+    square.addEventListener("mouseover", (e) => {
+      if (mouseIsDown && e.type == "mouseover" && rainbowMode) {
+        square.style.backgroundColor = generateRandomColor();
+      } else if (mouseIsDown && e.type == "mouseover" && !rainbowMode) {
+        square.style.backgroundColor = color;
+      }
+    })
+  );
+
+  gridSquares.forEach((square) =>
+    square.addEventListener("click", (e) => {
+      if (!mouseIsDown && e.type == "mouseover" && rainbowMode) {
+        square.style.backgroundColor = generateRandomColor();
+      } else if (!mouseIsDown && e.type == "mouseover" && !rainbowMode) {
+        square.style.backgroundColor = color;
+      }
+    })
+  );
+
+  gridSquares.forEach((square) =>
+    square.addEventListener("mouseup", () => {
+      mouseIsDown = false;
+    })
+  );
 }
 
 function eraseColorGridSquares() {
@@ -99,38 +152,6 @@ gridSlider.addEventListener("change", () => {
   btnColorMode.click();
   boardColor.value = "#ffffff";
 });
-
-function colorSquares(color) {
-  const gridSquares = drawArea.querySelectorAll(".grid-item-blank");
-
-  gridSquares.forEach((square) =>
-    square.addEventListener("mousedown", () => {
-      mouseIsDown = true;
-    })
-  );
-
-  gridSquares.forEach((square) =>
-    square.addEventListener("mouseover", (e) => {
-      if (mouseIsDown && e.type == "mouseover") {
-        square.style.backgroundColor = color;
-      }
-    })
-  );
-
-  gridSquares.forEach((square) =>
-    square.addEventListener("click", (e) => {
-      if (!mouseIsDown && e.type == "click") {
-        square.style.backgroundColor = color;
-      }
-    })
-  );
-
-  gridSquares.forEach((square) =>
-    square.addEventListener("mouseup", () => {
-      mouseIsDown = false;
-    })
-  );
-}
 
 window.onload = () => {
   boardColor.value = "#ffffff";
