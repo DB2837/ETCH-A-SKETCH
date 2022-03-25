@@ -8,7 +8,7 @@ const btnGridLines = document.querySelector("#grid-lines");
 const drawArea = document.querySelector(".draw-area");
 const gridSlider = document.getElementById("slider");
 const sliderSize = document.getElementById("slider-size");
-let randomColor;
+
 let rainbowMode = false;
 let mouseIsDown = false;
 
@@ -102,12 +102,19 @@ function randomColorGridSquares() {
 
 function colorSquares(color) {
   const gridSquares = drawArea.querySelectorAll(".grid-item-blank");
+  drawArea.addEventListener("mousedown", () => {
+    mouseIsDown = true;
+  });
 
-  gridSquares.forEach((square) =>
+  drawArea.addEventListener("mouseup", () => {
+    mouseIsDown = false;
+  });
+
+  /* gridSquares.forEach((square) =>
     square.addEventListener("mousedown", () => {
       mouseIsDown = true;
     })
-  );
+  ); */
 
   gridSquares.forEach((square) =>
     square.addEventListener("mouseover", (e) => {
@@ -121,19 +128,19 @@ function colorSquares(color) {
 
   gridSquares.forEach((square) =>
     square.addEventListener("click", (e) => {
-      if (!mouseIsDown && e.type == "mouseover" && rainbowMode) {
+      if (!mouseIsDown && e.type == "click" && rainbowMode) {
         square.style.backgroundColor = generateRandomColor();
-      } else if (!mouseIsDown && e.type == "mouseover" && !rainbowMode) {
+      } else if (!mouseIsDown && e.type == "click" && !rainbowMode) {
         square.style.backgroundColor = color;
       }
     })
   );
 
-  gridSquares.forEach((square) =>
+  /* gridSquares.forEach((square) =>
     square.addEventListener("mouseup", () => {
       mouseIsDown = false;
     })
-  );
+  ); */
 }
 
 function eraseColorGridSquares() {
